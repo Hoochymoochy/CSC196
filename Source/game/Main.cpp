@@ -32,13 +32,25 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Set render draw color to black
-        SDL_RenderClear(renderer); // Clear the renderer
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 250);
+        SDL_RenderClear(renderer);
 
-        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Set render draw color to green
-        SDL_RenderFillRect(renderer, &greenSquare); // Render the rectangle
+        for (int i = 0; i < 100; ++i) {
+            float x1 = static_cast<float>(rand() % 1280);
+            float y1 = static_cast<float>(rand() % 1024);
+            float x2 = static_cast<float>(rand() % 1280);
+            float y2 = static_cast<float>(rand() % 1024);
 
-        SDL_RenderPresent(renderer); // Render the screen
+            Uint8 r = rand() % 256;
+            Uint8 g = rand() % 256;
+            Uint8 b = rand() % 256;
+
+			SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+            SDL_RenderLine(renderer, x1, y1, x2, y2);
+			SDL_RenderPoint(renderer, x1, y1);
+        }
+
+        SDL_RenderPresent(renderer);
     }
 
     SDL_DestroyRenderer(renderer);
