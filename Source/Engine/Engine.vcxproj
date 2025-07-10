@@ -152,6 +152,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Render\Render.cpp" />
+    <ClCompile Include="Source\Core\Time.cpp" />
+    <ClCompile Include="Source\Input\InputSystem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Render\Renderer.h" />
+    <ClInclude Include="Source\Core\Random.h" />
+    <ClInclude Include="Source\Core\Time.h" />
+    <ClInclude Include="Source\Input\InputSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

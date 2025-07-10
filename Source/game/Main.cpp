@@ -1,61 +1,70 @@
-#include <SDL3/SDL.h>
+#include "Render/Renderer.h"
+#include "Math/Vector2.h"
+#include "Source/Core/Time.h"
+#include "Source/Core/Random.h"
+#include "Source/Input/InputSystem.h"
+#include "Math/Math.h"
 #include <iostream>
+#include <vector>
+
 
 int main(int argc, char* argv[]) {
-    SDL_Init(SDL_INIT_VIDEO);
-
-    SDL_Window* window = SDL_CreateWindow("SDL3 Project", 1280, 1024, 0);
-    if (window == nullptr) {
-        std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
-        SDL_Quit();
-        return 1;
-    }
-
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
-    if (renderer == nullptr) {
-        std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 1;
-    }
+    // initialize engine system
+	Renderer renderer;
+	renderer.Initialized();
+	renderer.CreateWindow("Viper engine", 1280, 1024);
+	viper::Time time;
+    viper::InputSystem input;
+    input.Initialize();
 
     SDL_Event e;
     bool quit = false;
 
+	std::vector<viper::vec2> stars;
+    for (int i = 0; i < 100; ++i) {
+		stars.push_back(viper::vec2{ viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024 });
+	}
     // Define a rectangle
     SDL_FRect greenSquare{ 270, 190, 200, 200 };
 
     while (!quit) {
+		time.Tick();
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_EVENT_QUIT) {
                 quit = true;
             }
         }
 
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 250);
-        SDL_RenderClear(renderer);
+        input.Update();
 
-        for (int i = 0; i < 100; ++i) {
-            float x1 = static_cast<float>(rand() % 1280);
-            float y1 = static_cast<float>(rand() % 1024);
-            float x2 = static_cast<float>(rand() % 1280);
-            float y2 = static_cast<float>(rand() % 1024);
-
-            Uint8 r = rand() % 256;
-            Uint8 g = rand() % 256;
-            Uint8 b = rand() % 256;
-
-			SDL_SetRenderDrawColor(renderer, r, g, b, 255);
-            SDL_RenderLine(renderer, x1, y1, x2, y2);
-			SDL_RenderPoint(renderer, x1, y1);
+        if (input.GetKeyReleased(SDL_SCANCODE_A)) {
+            std::cout << "pressed\n";
         }
 
-        SDL_RenderPresent(renderer);
-    }
+        viper::vec2 mouse = input.GetMousePosition();
+        std::cout << mouse.x << " " << mouse.y;
 
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+        //if (input.GetMouseButton(0)) {
+
+        //}
+
+        //draw
+
+		viper::vec2 speed{ 0.1f, 0.0f };
+		float length = speed.Length();
+        for(viper::vec2& star : stars) {
+            star += speed;
+			if (star[0] > 1280) star[0] = 0;
+			if (star[0] < 0) star[0] = 1280;
+
+			renderer.SetColor(viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256));
+			renderer.DrawPoint(star.x, star.y);
+
+		}
+
+		renderer.Present();
+    }
+	renderer.Shutdown();
 
     return 0;
 }

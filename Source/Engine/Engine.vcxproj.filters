@@ -9,10 +9,51 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source\Core">
+      <UniqueIdentifier>{341112c1-f30b-49a1-8ae5-48e474674bf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render">
+      <UniqueIdentifier>{e612c1a6-8ab1-4068-ace0-1374efd969a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Math">
+      <UniqueIdentifier>{393bc853-32c4-4ee0-9ec5-8ee44f1649de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Input">
+      <UniqueIdentifier>{bc1a538d-574c-4bb5-b9e7-08657d085bae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Render\Render.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\Time.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\InputSystem.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Render\Renderer.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Math.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Random.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Time.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\InputSystem.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
