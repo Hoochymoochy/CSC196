@@ -5,100 +5,100 @@
 namespace viper {
 
 	template<typename T>
-	struct Vector2 {
+	struct Vector3 {
 		T x, y;
 
-		Vector2() = default;
-		Vector2(T x, T y) : x{ x }, y{ y } {}
+		Vector3() = default;
+		Vector3(T x, T y) : x{ x }, y{ y }, z{ z } {}
 
 		T operator [] (unsigned int index) const {
-			assert(index < 2);
+			assert(index < 3);
 			return (&x)[index];
 		}
 
 		T& operator [] (unsigned int index) {
-			assert(index < 2);
+			assert(index < 3);
 			return (&x)[index];
 		}
 
 		// Arithmetic operators
-		Vector2 operator + (const Vector2& v) const {
-			return Vector2(x + v.x, y + v.y);
+		Vector3 operator + (const Vector3& v) const {
+			return Vector3(x + v.x, y + v.y, z + v.z);
 		}
 
-		Vector2 operator - (const Vector2& v) const {
-			return Vector2(x - v.x, y - v.y);
+		Vector3 operator - (const Vector3& v) const {
+			return Vector3(x - v.x, y - v.y, z - v.z);
 		}
 
-		Vector2 operator * (const Vector2& v) const {
-			return Vector2(x * v.x, y * v.y);
+		Vector3 operator * (const Vector3& v) const {
+			return Vector3(x * v.x, y * v.y, z * v.z);
 		}
 
-		Vector2 operator / (const Vector2& v) const {
-			return Vector2(x / v.x, y / v.y);
+		Vector3 operator / (const Vector3& v) const {
+			return Vector3(x / v.x, y / v.y);
 		}
 
-		Vector2 operator + (T s) const {
-			return Vector2(x + s, y + s);
+		Vector3 operator + (T s) const {
+			return Vector3(x + s, y + s);
 		}
 
-		Vector2 operator - (T s) const {
-			return Vector2(x - s, y - s);
+		Vector3 operator - (T s) const {
+			return Vector3(x - s, y - s);
 		}
 
-		Vector2 operator * (T s) const {
-			return Vector2(x * s, y * s);
+		Vector3 operator * (T s) const {
+			return Vector3(x * s, y * s);
 		}
 
-		Vector2 operator / (T s) const {
-			return Vector2(x / s, y / s);
+		Vector3 operator / (T s) const {
+			return Vector3(x / s, y / s);
 		}
 
 		// Compound assignment operators (vector)
-		Vector2& operator += (const Vector2& v) {
+		Vector3& operator += (const Vector3& v) {
 			x += v.x; y += v.y;
 			return *this;
 		}
 
-		Vector2& operator -= (const Vector2& v) {
+		Vector3& operator -= (const Vector3& v) {
 			x -= v.x; y -= v.y;
 			return *this;
 		}
 
-		Vector2& operator *= (const Vector2& v) {
+		Vector3& operator *= (const Vector3& v) {
 			x *= v.x; y *= v.y;
 			return *this;
 		}
 
-		Vector2& operator /= (const Vector2& v) {
+		Vector3& operator /= (const Vector3& v) {
 			x /= v.x; y /= v.y;
 			return *this;
 		}
 
 		// Compound assignment operators (scalar)
-		Vector2& operator += (T s) {
+		Vector3& operator += (T s) {
 			x += s; y += s;
 			return *this;
 		}
 
-		Vector2& operator -= (T s) {
+		Vector3& operator -= (T s) {
 			x -= s; y -= s;
 			return *this;
 		}
 
-		Vector2& operator *= (T s) {
+		Vector3& operator *= (T s) {
 			x *= s; y *= s;
 			return *this;
 		}
 
-		Vector2& operator /= (T s) {
+		Vector3& operator /= (T s) {
 			x /= s; y /= s;
 			return *this;
 		}
 
 		// Length stuff
 		T LengthSqr() const {
-			return (x * x) + (y * y);
+			return (x * x) + (y * y) + (z * z);
 		}
 
 		T Length() const {
@@ -106,7 +106,7 @@ namespace viper {
 		}
 	};
 
-	using ivec2 = Vector2<int>;
-	using vec2 = Vector2<float>;
+	using ivec3 = Vector3<int>;
+	using vec3 = Vector3<float>;
 
 }

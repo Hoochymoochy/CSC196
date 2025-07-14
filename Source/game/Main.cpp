@@ -3,6 +3,7 @@
 #include "Source/Core/Time.h"
 #include "Source/Core/Random.h"
 #include "Source/Input/InputSystem.h"
+#include "Audio/AudioSystem.h"
 #include "Math/Math.h"
 #include <iostream>
 #include <vector>
@@ -16,6 +17,18 @@ int main(int argc, char* argv[]) {
 	viper::Time time;
     viper::InputSystem input;
     input.Initialize();
+
+	viper::AudioSystem audio;
+	audio.Initialize();
+
+    audio.AddSound("bass.wav", "bass");
+    audio.AddSound("clap.wav", "clap");
+    audio.AddSound("close-hat.wav", "close-hat");
+    audio.AddSound("cowbell.wav", "cowbell");
+    audio.AddSound("open-hat.wav", "open-hat");
+    audio.AddSound("snare.wav", "snare");
+
+
 
     SDL_Event e;
     bool quit = false;
@@ -36,8 +49,27 @@ int main(int argc, char* argv[]) {
         }
 
         input.Update();
+		audio.Update();
 
 
+        if (input.GetKeyDown(SDL_SCANCODE_Q)) {
+			audio.PlaySound("bass");
+		}
+        if (input.GetKeyDown(SDL_SCANCODE_W)) {
+            audio.PlaySound("clap");
+        }
+        if (input.GetKeyDown(SDL_SCANCODE_E)) {
+            audio.PlaySound("close-hat");
+        }
+        if (input.GetKeyDown(SDL_SCANCODE_R)) {
+            audio.PlaySound("cowbell");
+        }
+        if (input.GetKeyDown(SDL_SCANCODE_T)) {
+            audio.PlaySound("open-hat");
+        }
+        if (input.GetKeyDown(SDL_SCANCODE_Y)) {
+            audio.PlaySound("snare");
+        }
 
     renderer.SetColor(0, 0, 0); 
     renderer.Clear();
@@ -79,6 +111,7 @@ int main(int argc, char* argv[]) {
 		renderer.Present();
     }
 	renderer.Shutdown();
+	audio.Shutdown();
 
     return 0;
 }
