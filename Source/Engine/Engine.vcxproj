@@ -156,8 +156,10 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input\InputSystem.cpp" />
+    <ClCompile Include="Render\Font.cpp" />
     <ClCompile Include="Render\Model.cpp" />
     <ClCompile Include="Render\Renderer.cpp" />
+    <ClCompile Include="Render\Text.cpp" />
     <ClCompile Include="Source\Game\Actor.cpp" />
     <ClCompile Include="Source\Game\Scene.cpp" />
   </ItemGroup>
@@ -172,8 +174,10 @@
     <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Render\Font.h" />
     <ClInclude Include="Render\Model.h" />
     <ClInclude Include="Render\Renderer.h" />
+    <ClInclude Include="Render\Text.h" />
     <ClInclude Include="Source\Core\Random.h" />
     <ClInclude Include="Source\Game\Actor.h" />
     <ClInclude Include="Source\Game\Scene.h" />
