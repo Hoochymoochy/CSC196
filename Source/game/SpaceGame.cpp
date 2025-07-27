@@ -27,7 +27,7 @@ bool SpaceGame::Initialize() {
 
     std::vector<std::unique_ptr<viper::Actor>> actors;
     for (int i = 0; i < 10; ++i) {
-        viper::Transform transform{ viper::vec2 {viper::random::getRandomFloat() * 1024, viper::random::getRandomFloat() * 1024} };
+        viper::Transform transform{ viper::vec2 {viper::random::getReal() * 1024, viper::random::getReal() * 1024} };
         std::unique_ptr<Player> player = std::make_unique<Player>(transform, model);
         m_scene->AddActor(std::move(player));
     }
