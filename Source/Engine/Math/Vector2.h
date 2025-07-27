@@ -6,7 +6,10 @@ namespace viper {
 
 	template<typename T>
 	struct Vector2 {
-		T x, y;
+		union {
+			struct { T x, y; };
+			struct { T u, v; };
+		};
 
 		Vector2() = default;
 		Vector2(T x, T y) : x{ x }, y{ y } {}
@@ -103,6 +106,19 @@ namespace viper {
 
 		T Length() const {
 			return math::sqrt(LengthSqr());
+		}
+
+		Vector2 Normalized() const { return *this / Length(); }
+
+		float Angle() const { return math::atan2f(y, x); };
+
+		Vector2 Rotate(float radians) const {
+			Vector2 v;
+
+			v.x = x * math::cosf(radians) - y * math::sinf(radians);
+			v.y = x * math::sinf(radians) + y * math::cosf(radians);
+
+			return v;
 		}
 	};
 

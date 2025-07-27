@@ -24,28 +24,40 @@
     <Filter Include="Source\Audio">
       <UniqueIdentifier>{84a9b70f-433e-4985-b98a-36d5a721fdf8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Framework">
+      <UniqueIdentifier>{ec13f394-244d-4ceb-979d-b1d50b7db79e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Render\Render.cpp">
-      <Filter>Source\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Core\Time.cpp">
-      <Filter>Source\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Input\InputSystem.cpp">
-      <Filter>Source\Input</Filter>
-    </ClCompile>
     <ClCompile Include="Audio\AudioSystem.cpp">
       <Filter>Source\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Time.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Model.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Renderer.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\InputSystem.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Scene.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Actor.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Render\Renderer.h">
-      <Filter>Source\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Math.h">
       <Filter>Source\Math</Filter>
     </ClInclude>
@@ -55,12 +67,6 @@
     <ClInclude Include="Source\Core\Random.h">
       <Filter>Source\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Time.h">
-      <Filter>Source\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\InputSystem.h">
-      <Filter>Source\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Vector3.h">
       <Filter>Source\Math</Filter>
     </ClInclude>
@@ -69,6 +75,33 @@
     </ClInclude>
     <ClInclude Include="Core\CoreStringHelper.h">
       <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Transform.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Time.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Renderer.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Model.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputSystem.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Scene.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Actor.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source\Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

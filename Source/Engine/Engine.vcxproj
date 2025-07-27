@@ -152,21 +152,31 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Audio\AudioSystem.cpp" />
+    <ClCompile Include="Core\Time.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Render\Render.cpp" />
-    <ClCompile Include="Source\Core\Time.cpp" />
-    <ClCompile Include="Source\Input\InputSystem.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Input\InputSystem.cpp" />
+    <ClCompile Include="Render\Model.cpp" />
+    <ClCompile Include="Render\Renderer.cpp" />
+    <ClCompile Include="Source\Game\Actor.cpp" />
+    <ClCompile Include="Source\Game\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio\AudioSystem.h" />
     <ClInclude Include="Core\CoreStringHelper.h" />
+    <ClInclude Include="Core\Time.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Input\InputSystem.h" />
     <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Render\Model.h" />
     <ClInclude Include="Render\Renderer.h" />
     <ClInclude Include="Source\Core\Random.h" />
-    <ClInclude Include="Source\Core\Time.h" />
-    <ClInclude Include="Source\Input\InputSystem.h" />
+    <ClInclude Include="Source\Game\Actor.h" />
+    <ClInclude Include="Source\Game\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
