@@ -22,10 +22,52 @@
 
 #include "../game/Player.h"
 #include "../game/SpaceGame.h"
+
+#include "../Engine/Core/File.h"
 using namespace viper;
 
 
 int main(int argc, char* argv[]) {
+
+    // Get current directory path
+    std::cout << "Directory Operations:\n";
+    std::cout << "Current directory: " << viper::file::GetCurrentDirectory() << "\n";
+
+    // Set current directory path (current path + "Assets")
+    std::cout << "Setting directory to 'Assets'...\n";
+    viper::file::SetCurrentDirectory("Assets");
+    std::cout << "New directory: " << viper::file::GetCurrentDirectory() << "\n\n";
+
+    // Get filenames in the current directory
+    std::cout << "Files in Directory:\n";
+    auto filenames = viper::file::GetFilesInDirectory(viper::file::GetCurrentDirectory());
+    for (const auto& filename : filenames) {
+        std::cout << filename << "\n";
+    }
+    std::cout << "\n";
+
+    // Get filename (filename.extension) only
+    if (!filenames.empty()) {
+        std::cout << "Path Analysis:\n";
+        std::string filename = viper::file::GetFilename(filenames[0]);
+        std::cout << "Filename only: " << filename << "\n";
+
+        // Get extension only
+        std::string ext = viper::file::GetExtension(filenames[0]);
+        std::cout << "Extension: " << ext << "\n\n";
+    }
+
+    // Read and display text file
+    std::cout << "Text File Reading:\n";
+    std::string str;
+    bool success = viper::file::ReadTextFile("test.txt", str);
+    if (success) {
+        std::cout << "Contents of test.txt:\n";
+        std::cout << str << "\n";
+    }
+    else {
+        std::cout << "Failed to read test.txt\n";
+    }
 
     // Initialize the engine
     viper::GetEngine().Initialize();
