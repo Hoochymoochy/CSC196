@@ -5,6 +5,7 @@
 #include "../Engine/Core/Random.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Health.h"
 
 #include <vector>
 #include <Engine.h>
@@ -106,6 +107,27 @@ bool SpaceGame::Initialize() {
         { 0, -30 }
     };
 
+    std::vector<viper::vec2> heart_shape = {
+        { 0, 25 },       // top point (flipped Y)
+        { 8, 18 },       // right top curve
+        { 15, 10 },      // right side
+        { 20, 2 },       // right lower curve
+        { 22, -6 },      // right bottom of right lobe
+        { 18, -12 },     // right dip
+        { 12, -15 },     // right bottom
+        { 5, -16 },      // right base
+        { 0, -12 },      // center dip (now bottom)
+        { -5, -16 },     // left base
+        { -12, -15 },    // left bottom
+        { -18, -12 },    // left dip
+        { -22, -6 },     // left bottom of left lobe
+        { -20, 2 },      // left lower curve
+        { -15, 10 },     // left side
+        { -8, 18 },      // left top curve
+        { 0, 25 }        // close the shape
+    };
+
+
 
     std::shared_ptr<viper::Model> player = std::make_shared < viper::Model>(points, viper::vec3{ 1, 1, 1 });
 
@@ -117,14 +139,27 @@ bool SpaceGame::Initialize() {
         std::make_shared<viper::Model>(asteroid_spiky,     viper::vec3{ 0.9f, 0.3f, 0.3f }),
     };
 
-    //viper::Model* model = new viper::Model(points, viper::vec3{ 0, 0, 1 });
+    std::vector<std::shared_ptr<viper::Model>> heartModels = {
+        std::make_shared<viper::Model>(heart_shape, viper::vec3{ 1, 0, 0 }), 
+        std::make_shared<viper::Model>(heart_shape, viper::vec3{ 1, 0, 0 }), 
+        std::make_shared<viper::Model>(heart_shape, viper::vec3{ 1, 0, 0 }) 
+	};
 
     viper::Transform transform{ viper::vec2{ 640, 512 }, 0, 20 };
 
     viper::Transform playerTransform{ viper::vec2{640, 512}, 0, 20 };
     m_scene->AddActor(std::make_unique<Player>(playerTransform, player));
 
-    std::vector<std::unique_ptr<viper::Actor>> actors;
+    for (int i = 0; i < 3; i++) {
+		int modelIndex = static_cast<int>(viper::random::getInt(0, static_cast<int>(heartModels.size()) - 1));
+		std::shared_ptr<viper::Model> randomHeartModel = heartModels[modelIndex];
+		viper::Transform heartTransform{ viper::vec2{ static_cast<float>(1100 + i * 50), 30 }};
+        std::unique_ptr<Health> health = std::make_unique<Health>(heartTransform, randomHeartModel);
+		m_scene->AddActor(std::move(health));
+    };
+
+
+
     for (int i = 0; i < 10; ++i) {
         int modelIndex = static_cast<int>(viper::random::getInt(0, static_cast<int>(asteroidModels.size()) - 1));
         std::shared_ptr<viper::Model> randomModel = asteroidModels[modelIndex];
