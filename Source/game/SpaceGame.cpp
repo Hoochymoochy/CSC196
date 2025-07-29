@@ -158,8 +158,6 @@ bool SpaceGame::Initialize() {
 		m_scene->AddActor(std::move(health));
     };
 
-
-
     for (int i = 0; i < 10; ++i) {
         int modelIndex = static_cast<int>(viper::random::getInt(0, static_cast<int>(asteroidModels.size()) - 1));
         std::shared_ptr<viper::Model> randomModel = asteroidModels[modelIndex];
