@@ -172,6 +172,7 @@
     <ClInclude Include="Audio\AudioSystem.h" />
     <ClInclude Include="Core\CoreStringHelper.h" />
     <ClInclude Include="Core\File.h" />
+    <ClInclude Include="Core\Random.h" />
     <ClInclude Include="Core\Time.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Game.h" />
@@ -184,7 +185,6 @@
     <ClInclude Include="Render\Model.h" />
     <ClInclude Include="Render\Renderer.h" />
     <ClInclude Include="Render\Text.h" />
-    <ClInclude Include="Source\Core\Random.h" />
     <ClInclude Include="Source\Game\Actor.h" />
     <ClInclude Include="Source\Game\Scene.h" />
   </ItemGroup>
