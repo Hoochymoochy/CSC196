@@ -15,6 +15,8 @@ namespace viper {
 
 		bool AddSound(const std::string& filename, const std::string& name = "");
 		bool PlaySound(const std::string& name);
+		bool PlayMusic(const std::string& name, bool loop = true);
+
 
 	private:
 		bool CheckFMODResult(FMOD_RESULT reslut);

@@ -67,6 +67,16 @@ int main(int argc, char* argv[]) {
         viper::GetEngine().Update();
         game->Update();
 
+        viper::GetEngine().GetAudio().AddSound("music.wav", "music");
+        viper::GetEngine().GetAudio().PlayMusic("music");
+
+		//viper::GetEngine().GetAudio().AddSound("lazer.mp3", "laser");
+  //      if (viper::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)){
+  //          viper::GetEngine().GetAudio().PlaySound("laser");
+  //      }
+		
+
+
         if (viper::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
 
         viper::vec3 color{ 0, 0, 0 };

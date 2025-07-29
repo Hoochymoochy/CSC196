@@ -108,6 +108,7 @@ bool SpaceGame::Initialize() {
 
 
     std::shared_ptr<viper::Model> player = std::make_shared < viper::Model>(points, viper::vec3{ 1, 1, 1 });
+
     std::vector<std::shared_ptr<viper::Model>> asteroidModels = {
         std::make_shared<viper::Model>(asteroid_large,     viper::vec3{ 0.8f, 0.8f, 0.8f }),
         std::make_shared<viper::Model>(asteroid_medium,    viper::vec3{ 0.6f, 0.6f, 0.6f }),

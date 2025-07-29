@@ -67,4 +67,25 @@ namespace viper {
 		return CheckFMODResult(result);
 	}
 
+	bool AudioSystem::PlayMusic(const std::string& name, bool loop) {
+		std::string key = toLower(name);
+		auto it = m_sounds.find(key);
+		if (it == m_sounds.end()) {
+			std::cerr << "Audio System: Music not found: " << key << std::endl;
+			return false;
+		}
+
+		if (loop) {
+			it->second->setMode(FMOD_LOOP_NORMAL);
+		}
+		else {
+			it->second->setMode(FMOD_LOOP_OFF);
+		}
+
+		FMOD::Channel* channel = nullptr;
+		FMOD_RESULT result = m_system->playSound(it->second, nullptr, false, &channel);
+		return CheckFMODResult(result);
+	}
+
+
 }
