@@ -3,15 +3,25 @@
 #include "../Render/Renderer.h"
 
 namespace viper {
+
 	void Scene::Update(float dt) {
 		for (auto& actor : m_actors) {
-			actor->Update(dt);
+			if (actor) actor->Update(dt);
 		}
+
+		// Optional: remove dead actors
+		m_actors.erase(
+			std::remove_if(m_actors.begin(), m_actors.end(),
+				[](const std::unique_ptr<Actor>& actor) {
+					return actor && actor->IsDestroyed(); // Or use health check
+				}),
+			m_actors.end()
+		);
 	}
 
 	void Scene::Draw(Renderer& renderer) {
 		for (auto& actor : m_actors) {
-			actor->Draw(renderer);
+			if (actor) actor->Draw(renderer);
 		}
 	}
 

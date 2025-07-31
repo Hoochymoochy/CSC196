@@ -1,4 +1,4 @@
-#include "SpaceGame.h"
+﻿#include "SpaceGame.h"
 #include "../Engine/Source/Game/Scene.h"
 #include "../Engine/Math/Vector2.h"
 #include "../Engine/Render/Model.h"
@@ -6,9 +6,11 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Health.h"
+#include "../Engine/Source/Game/Collisions.h"
 
 #include <vector>
 #include <Engine.h>
+#include <iostream>
 
 bool SpaceGame::Initialize() {
 	m_scene = std::make_unique<viper::Scene>();
@@ -131,6 +133,7 @@ bool SpaceGame::Initialize() {
 
     std::shared_ptr<viper::Model> player = std::make_shared < viper::Model>(points, viper::vec3{ 1, 1, 1 });
 
+
     std::vector<std::shared_ptr<viper::Model>> asteroidModels = {
         std::make_shared<viper::Model>(asteroid_large,     viper::vec3{ 0.8f, 0.8f, 0.8f }),
         std::make_shared<viper::Model>(asteroid_medium,    viper::vec3{ 0.6f, 0.6f, 0.6f }),
@@ -151,12 +154,15 @@ bool SpaceGame::Initialize() {
     m_scene->AddActor(std::make_unique<Player>(playerTransform, player));
 
     for (int i = 0; i < 3; i++) {
-		int modelIndex = static_cast<int>(viper::random::getInt(0, static_cast<int>(heartModels.size()) - 1));
-		std::shared_ptr<viper::Model> randomHeartModel = heartModels[modelIndex];
-		viper::Transform heartTransform{ viper::vec2{ static_cast<float>(1100 + i * 50), 30 }};
-        std::unique_ptr<Health> health = std::make_unique<Health>(heartTransform, randomHeartModel);
-		m_scene->AddActor(std::move(health));
+        int modelIndex = static_cast<int>(viper::random::getInt(0, static_cast<int>(heartModels.size()) - 1));
+        std::shared_ptr<viper::Model> randomHeartModel = heartModels[modelIndex];
+        viper::Transform heartTransform{ viper::vec2{ static_cast<float>(1100 + i * 50), 30 } };
+        auto health = std::make_unique<Health>(heartTransform, randomHeartModel);
+
+        m_hearts.push_back(health.get());  // Keep pointer
+        m_scene->AddActor(std::move(health));
     };
+
 
     for (int i = 0; i < 10; ++i) {
         int modelIndex = static_cast<int>(viper::random::getInt(0, static_cast<int>(asteroidModels.size()) - 1));
@@ -177,7 +183,52 @@ bool SpaceGame::Initialize() {
 
 void SpaceGame::Update() {
     m_scene->Update(viper::GetEngine().GetTime().GetDeltaTime());
+
+    auto player = m_scene->GetActor<Player>();
+    auto enemies = m_scene->GetActors<Enemy>();
+
+    // Remove hearts based on player health
+
+    // Clamp healthLeft between 0 and m_hearts.size()
+    int heartsCount = static_cast<int>(m_hearts.size());
+    int healthLeft = player->GetHealth();
+
+
+
+    // Hide hearts beyond current health
+    for (int i = 0; i < m_hearts.size(); i++) {
+        if (i < healthLeft) {
+            // Show heart (optional: implement SetVisible(true))
+            // For now, do nothing and let it draw
+        }
+        else {
+            // Hide or remove heart
+            // Option A: Move off screen (quick hack)
+            m_hearts[i]->GetTransform().position = viper::vec2{ -1000.0f, -1000.0f };
+            // Option B: Implement a visible flag on Health to skip drawing (better)
+        }
+    }
+
+    for (auto& enemy : enemies) {
+        if (!enemy) continue;
+
+        if (viper::Collisions::CheckCollision(
+            player->GetTransform(), player->GetRadius(),
+            enemy->GetTransform(), enemy->GetRadius())) {
+
+            player->SetHealth(player->GetHealth() - 1);
+            enemy->SetHealth(0);
+
+            std::cout << "💥 Collision! Player HP: " << player->GetHealth() << "\n";
+        }
+
+        if (enemy->GetHealth() <= 0) {
+            enemy->GetTransform().position = viper::vec2{ -100.0f, -100.0f }; // Move off-screen
+        }
+    }
 }
+
+
 
 void SpaceGame::Draw() {
     if (m_scene) m_scene->Draw(viper::GetEngine().GetRenderer());

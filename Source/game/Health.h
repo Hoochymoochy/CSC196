@@ -11,6 +11,10 @@ public:
 	}
 
 	void Update(float dt) override;
+	void Die() { m_health = 0; }
+	int GetHealth() const { return m_health; }
 
 private:
+	int m_health = 1;
+
 };
