@@ -22,5 +22,5 @@ public:
 
 private:
 	viper::vec2 m_velocity;
-	int m_health = 1; // default 1 hp
+	int m_health = 1;
 };
