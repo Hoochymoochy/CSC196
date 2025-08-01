@@ -47,6 +47,8 @@ int main(int argc, char* argv[]) {
         std::cerr << "Could not load font. Aborting.\n";
         return -1;
     }
+	viper::GetEngine().GetAudio().AddSound("ms.mp3", "ms");
+	viper::GetEngine().GetAudio().PlayMusic("ms");
 
     Text* text = new Text(font);
 
