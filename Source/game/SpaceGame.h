@@ -10,4 +10,5 @@ public:
 	void Draw() override;
 private:
 	std::vector<Health*> m_hearts;
+	std::shared_ptr<viper::Model> m_bulletModel;
 };

@@ -39,5 +39,8 @@
     <ClInclude Include="Health.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,10 +7,13 @@
 #include "Enemy.h"
 #include "Health.h"
 #include "../Engine/Source/Game/Collisions.h"
+#include "Input/InputSystem.h"
+
 
 #include <vector>
 #include <Engine.h>
 #include <iostream>
+#include "Bullet.h"
 
 bool SpaceGame::Initialize() {
 	m_scene = std::make_unique<viper::Scene>();
@@ -130,6 +133,11 @@ bool SpaceGame::Initialize() {
     };
 
 
+    std::vector<viper::vec2> bulletShape = {
+    { -2, -5 }, { 2, -5 }, { 2, 5 }, { -2, 5 }, { -2, -5 }
+    };
+
+    m_bulletModel = std::make_shared<viper::Model>(bulletShape, viper::vec3{ 1, 1, 1});
 
     std::shared_ptr<viper::Model> player = std::make_shared < viper::Model>(points, viper::vec3{ 1, 1, 1 });
 
@@ -186,7 +194,6 @@ void SpaceGame::Update() {
 
     auto player = m_scene->GetActor<Player>();
     auto enemies = m_scene->GetActors<Enemy>();
-
     // Remove hearts based on player health
 
     // Clamp healthLeft between 0 and m_hearts.size()
@@ -209,6 +216,23 @@ void SpaceGame::Update() {
         }
     }
 
+    static float fireCooldown = 0.0f;
+    fireCooldown -= viper::GetEngine().GetTime().GetDeltaTime();
+
+    if (viper::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE) && fireCooldown <= 0.0f) {
+        fireCooldown = 0.3f; // 300ms cooldown
+
+        std::cout << "🚀 Pew pew!\n";
+        std::vector<std::unique_ptr<viper::Actor>> newBullets;
+        player->Shoot(newBullets, m_bulletModel);
+
+        for (auto& bullet : newBullets) {
+            m_scene->AddActor(std::move(bullet));
+        }
+    }
+
+
+
     for (auto& enemy : enemies) {
         if (!enemy) continue;
 
@@ -221,6 +245,23 @@ void SpaceGame::Update() {
 
             std::cout << "💥 Collision! Player HP: " << player->GetHealth() << "\n";
         }
+
+		// Check collision with bullets
+		auto bullets = m_scene->GetActors<Bullet>();
+        for (auto& bullet : bullets) {
+            if (!bullet) continue;
+            if (viper::Collisions::CheckCollision(
+                enemy->GetTransform(), enemy->GetRadius(),
+                bullet->GetTransform(), bullet->GetRadius()
+            )) {
+                enemy->SetHealth(enemy->GetHealth() - 1);
+                bullet->SetHealth(0);
+                if(bullet->GetHealth() <= 0) {
+                    bullet->GetTransform().position = viper::vec2{ -100.0f, -100.0f }; // Move off-screen
+				}
+            }
+		}
+
 
         if (enemy->GetHealth() <= 0) {
             enemy->GetTransform().position = viper::vec2{ -100.0f, -100.0f }; // Move off-screen

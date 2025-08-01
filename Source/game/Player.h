@@ -18,6 +18,8 @@ public:
 	void SetHealth(int health) { m_health = health; }
 	void TakeDamage(int amount) { m_health -= amount; }
 
+	void Shoot(std::vector<std::unique_ptr<viper::Actor>>& bullets, std::shared_ptr<viper::Model> bulletModel);
+
 
 private:
 	int m_health = 3;
